@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -190,35 +192,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
+      body: Column(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        children: [
+          tweet(),
+          tweet(),
+          tweet(),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -231,14 +212,87 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.home)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             IconButton(
-                onPressed: () {}, icon: Icon(Icons.notifications_outlined)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.mail_outline)),
+                onPressed: () {},
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.lightBlue,
+                )),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                )),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_outlined,
+                  color: Colors.grey,
+                )),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.mail_outline,
+                  color: Colors.grey,
+                )),
           ],
         ),
       ),
+    );
+  }
+
+  Widget tweet() {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.grey,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(children: [
+                    Text('Username',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                      '@handle',
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                    Text(
+                      ' · 10m',
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                  ]),
+                ),
+                Text(
+                    '“The true method of knowledge is experiment.”—William Blake'),
+                Container(
+                  padding: EdgeInsets.fromLTRB(8, 5, 16, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.chat_bubble_outline_outlined),
+                      Icon(Icons.share_outlined),
+                      Icon(Icons.favorite_outline),
+                      Icon(Icons.upload_outlined),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -257,7 +311,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             icon: Icon(
                               Icons.close,
                               size: 30,
@@ -312,6 +368,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               maxLengthEnforcement:
                                   MaxLengthEnforcement.enforced,
                               decoration: InputDecoration(
+                                  border: InputBorder.none,
                                   hintText: "What's happening?"),
                             ),
                           ),
