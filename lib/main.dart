@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'custom_icons/my_flutter_app_icons.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -148,10 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]),
               ),
               Divider(
-                color: Colors.grey[400],
-              ),
-              Divider(
-                color: Colors.grey[400],
+                color: Colors.grey[300],
               ),
               drawerListItem(Icon(Icons.person), Text('My Account')),
               drawerListItem(Icon(Icons.fact_check_outlined), Text('Lists')),
@@ -162,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
               drawerListItem(
                   Icon(Icons.monetization_on_outlined), Text('Monetization')),
               Divider(
-                color: Colors.grey[400],
+                color: Colors.grey[300],
               ),
               drawerListItem(Icon(Icons.work_outline_outlined),
                   Text('Twitter for Professionals'))
@@ -182,10 +179,13 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.auto_awesome_outlined,
-              color: Colors.lightBlue,
-              size: 30,
+            child: IconButton(
+              icon: Icon(
+                Icons.auto_awesome_outlined,
+                color: Colors.lightBlue,
+                size: 30,
+              ),
+              onPressed: () {},
             ),
           ),
         ],
@@ -221,7 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          _newTweet();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -232,13 +234,91 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(onPressed: () {}, icon: Icon(Icons.home)),
             IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             IconButton(
-                onPressed: () {}, icon: Icon(Icons.bubble_chart_outlined)),
-            IconButton(
                 onPressed: () {}, icon: Icon(Icons.notifications_outlined)),
             IconButton(onPressed: () {}, icon: Icon(Icons.mail_outline)),
           ],
         ),
       ),
     );
+  }
+
+  void _newTweet() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.close,
+                              size: 30,
+                            )),
+                        TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(36.0),
+                                  side: const BorderSide(
+                                      color: Colors.lightBlue)),
+                            ),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(8.0)),
+                            textStyle: MaterialStateProperty.all(
+                                const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.lightBlue),
+                          ),
+                          // TextButton.styleFrom(
+                          //     padding: const EdgeInsets.all(16.0),
+                          //     primary: Colors.white,
+                          //     backgroundColor: Colors.lightBlue,
+                          //     textStyle: const TextStyle(fontSize: 20)),
+                          child: const Text('Tweet'),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                      padding: EdgeInsets.all(18.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.grey,
+                          ),
+                          Container(
+                            height: 300,
+                            width: 300,
+                            child: TextField(
+                              maxLines: null,
+                              maxLength: 280,
+                              maxLengthEnforcement:
+                                  MaxLengthEnforcement.enforced,
+                              decoration: InputDecoration(
+                                  hintText: "What's happening?"),
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
+              ));
+        });
   }
 }
