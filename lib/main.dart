@@ -1,15 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'widgets/tweet.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -192,16 +194,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Column(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        children: [
-          tweet(),
-          tweet(),
-          tweet(),
-        ],
-      ),
+      body: getTweets(),
       floatingActionButton: FloatingActionButton(
+        elevation: 1,
         onPressed: () {
           _newTweet();
         },
@@ -242,58 +237,32 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget tweet() {
-    return Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor: Colors.grey,
-          ),
-        ),
-        Expanded(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Row(children: [
-                    Text('Username',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Text(
-                      '@handle',
-                      style: TextStyle(fontWeight: FontWeight.w300),
+  Widget getTweets() {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference tweets = firestore.collection('tweets');
+    return FutureBuilder<QuerySnapshot>(
+        future: tweets.get(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+          List<Widget> _widgets = snapshot.data!.docs
+              .map((doc) => Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+                    child: Column(
+                      children: [
+                        tweet(doc['body'], doc['username'], doc['handle'],
+                            doc['replies'], doc['shares'], doc['favs']),
+                        const Divider(),
+                      ],
                     ),
-                    Text(
-                      ' · 10m',
-                      style: TextStyle(fontWeight: FontWeight.w300),
-                    ),
-                  ]),
-                ),
-                Text(
-                    '“The true method of knowledge is experiment.”—William Blake'),
-                Container(
-                  padding: EdgeInsets.fromLTRB(8, 5, 16, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(Icons.chat_bubble_outline_outlined),
-                      Icon(Icons.share_outlined),
-                      Icon(Icons.favorite_outline),
-                      Icon(Icons.upload_outlined),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+                  ))
+              .toList();
+
+          return ListView(
+            children: _widgets,
+          );
+        });
   }
 
   void _newTweet() {
@@ -339,11 +308,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.lightBlue),
                           ),
-                          // TextButton.styleFrom(
-                          //     padding: const EdgeInsets.all(16.0),
-                          //     primary: Colors.white,
-                          //     backgroundColor: Colors.lightBlue,
-                          //     textStyle: const TextStyle(fontSize: 20)),
                           child: const Text('Tweet'),
                           onPressed: () {},
                         )
