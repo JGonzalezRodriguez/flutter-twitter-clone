@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,6 +57,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -241,7 +244,10 @@ class _MyHomePageState extends State<MyHomePage> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
+          final TextEditingController _textEditingController =
+              TextEditingController();
           return Form(
+            key: _formkey,
             child: Container(
                 color: Colors.white,
                 child: Column(
@@ -282,7 +288,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: const Text('Tweet'),
                             onPressed: () {
-                              getTweets();
+                              FirebaseFirestore.instance
+                                  .collection('tweets')
+                                  .add({
+                                'username': 'prueba',
+                                'handle': 'handleprueba',
+                                'body': _textEditingController.text,
+                                'favs': 0,
+                                'shares': 0,
+                                'replies': 0
+                              });
+                              Navigator.of(context).pop();
                             },
                           )
                         ],
@@ -300,7 +316,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Container(
                               height: 300,
                               width: 300,
-                              child: TextField(
+                              child: TextFormField(
+                                controller: _textEditingController,
                                 maxLines: null,
                                 maxLength: 280,
                                 maxLengthEnforcement:
