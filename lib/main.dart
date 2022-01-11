@@ -241,76 +241,80 @@ class _MyHomePageState extends State<MyHomePage> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.close,
-                              size: 30,
-                            )),
-                        TextButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(36.0),
-                                  side: const BorderSide(
-                                      color: Colors.lightBlue)),
-                            ),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(8.0)),
-                            textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.lightBlue),
-                          ),
-                          child: const Text('Tweet'),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                      padding: EdgeInsets.all(18.0),
+          return Form(
+            child: Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(15),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.grey,
-                          ),
-                          Container(
-                            height: 300,
-                            width: 300,
-                            child: TextField(
-                              maxLines: null,
-                              maxLength: 280,
-                              maxLengthEnforcement:
-                                  MaxLengthEnforcement.enforced,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "What's happening?"),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                size: 30,
+                              )),
+                          TextButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(36.0),
+                                    side: const BorderSide(
+                                        color: Colors.lightBlue)),
+                              ),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(8.0)),
+                              textStyle: MaterialStateProperty.all(
+                                  const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.lightBlue),
                             ),
-                          ),
+                            child: const Text('Tweet'),
+                            onPressed: () {
+                              getTweets();
+                            },
+                          )
                         ],
-                      ))
-                ],
-              ));
+                      ),
+                    ),
+                    Container(
+                        padding: EdgeInsets.all(18.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.grey,
+                            ),
+                            Container(
+                              height: 300,
+                              width: 300,
+                              child: TextField(
+                                maxLines: null,
+                                maxLength: 280,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "What's happening?"),
+                              ),
+                            ),
+                          ],
+                        ))
+                  ],
+                )),
+          );
         });
   }
 }
