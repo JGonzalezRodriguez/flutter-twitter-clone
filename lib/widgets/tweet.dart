@@ -64,19 +64,22 @@ Widget tweet(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.comment,
-                          color: Colors.grey,
-                          size: 16,
-                        ),
-                        Text(
-                          comments.toString(),
-                          style: TextStyle(fontWeight: FontWeight.w300),
-                        )
-                      ],
+                    Container(
+                      width: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.comment,
+                            color: Colors.grey,
+                            size: 16,
+                          ),
+                          Text(
+                            comments.toString(),
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          )
+                        ],
+                      ),
                     ),
                     Container(
                       width: 50,
@@ -95,18 +98,21 @@ Widget tweet(
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.favorite_outline,
-                          color: Colors.grey,
-                          size: 18,
-                        ),
-                        Text(
-                          fav.toString(),
-                          style: TextStyle(fontWeight: FontWeight.w300),
-                        ),
-                      ],
+                    Container(
+                      width: 50,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.favorite_outline,
+                            color: Colors.grey,
+                            size: 18,
+                          ),
+                          Text(
+                            fav.toString(),
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                        ],
+                      ),
                     ),
                     Icon(
                       Icons.upload_outlined,

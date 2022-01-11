@@ -81,133 +81,173 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: Drawer(
-          backgroundColor: Colors.white,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              DrawerHeader(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        // margin: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Text(
-                          'Firstname Lastname',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: Text(
-                          '@username',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '1,000',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' Following   ',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                '100,000',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' Followers',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ))
-                    ]),
-              ),
-              Divider(
-                color: Colors.grey[300],
-              ),
-              drawerListItem(Icon(Icons.person), Text('My Account')),
-              drawerListItem(Icon(Icons.fact_check_outlined), Text('Lists')),
-              drawerListItem(Icon(Icons.chat_outlined), Text('Topics')),
-              drawerListItem(
-                  Icon(Icons.bookmark_border_outlined), Text('Bookmarks')),
-              drawerListItem(Icon(Icons.bolt_outlined), Text('Moments')),
-              drawerListItem(
-                  Icon(Icons.monetization_on_outlined), Text('Monetization')),
-              Divider(
-                color: Colors.grey[300],
-              ),
-              drawerListItem(Icon(Icons.work_outline_outlined),
-                  Text('Twitter for Professionals'))
-            ],
-          )),
-      appBar: AppBar(
-        elevation: 1,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: SizedBox(
-          height: 30,
-          child: Image.asset('img/twitter.png', fit: BoxFit.cover),
-        ),
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.lightBlue),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.auto_awesome_outlined,
-                color: Colors.lightBlue,
-                size: 30,
-              ),
-              onPressed: () {},
-            ),
+        drawer: Drawer(
+            backgroundColor: Colors.white,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                DrawerHeader(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          // margin: const EdgeInsets.all(8.0),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.grey,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: const Text(
+                            'Firstname Lastname',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: const Text(
+                            '@username',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                const Text(
+                                  '1,000',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const Text(
+                                  ' Following   ',
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const Text(
+                                  '100,000',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const Text(
+                                  ' Followers',
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ))
+                      ]),
+                ),
+                Divider(
+                  color: Colors.grey[300],
+                ),
+                drawerListItem(
+                    const Icon(Icons.person), const Text('My Account')),
+                drawerListItem(
+                    const Icon(Icons.fact_check_outlined), const Text('Lists')),
+                drawerListItem(
+                    const Icon(Icons.chat_outlined), const Text('Topics')),
+                drawerListItem(const Icon(Icons.bookmark_border_outlined),
+                    const Text('Bookmarks')),
+                drawerListItem(
+                    const Icon(Icons.bolt_outlined), const Text('Moments')),
+                drawerListItem(const Icon(Icons.monetization_on_outlined),
+                    const Text('Monetization')),
+                Divider(
+                  color: Colors.grey[300],
+                ),
+                drawerListItem(const Icon(Icons.work_outline_outlined),
+                    const Text('Twitter for Professionals'))
+              ],
+            )),
+        appBar: AppBar(
+          elevation: 1,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: SizedBox(
+            height: 30,
+            child: Image.asset('img/twitter.png', fit: BoxFit.cover),
           ),
-        ],
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.lightBlue),
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.auto_awesome_outlined,
+                  color: Colors.lightBlue,
+                  size: 30,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+        body: TabBarView(children: [
+          getTweets(),
+          const Icon(Icons.ac_unit),
+          const Icon(Icons.ac_unit),
+          const Icon(Icons.ac_unit),
+        ]),
+        floatingActionButton: FloatingActionButton(
+          elevation: 1,
+          onPressed: () {
+            _newTweet();
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+        bottomNavigationBar: BottomAppBar(
+          child: const TabBar(
+            indicatorColor: Colors.transparent,
+            labelColor: Colors.lightBlue,
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(
+                  icon: Icon(
+                Icons.home,
+                // color: Colors.grey,
+              )),
+              Tab(
+                  icon: Icon(
+                Icons.search,
+                // color: Colors.grey,
+              )),
+              Tab(
+                  icon: Icon(
+                Icons.notifications_outlined,
+                // color: Colors.grey,
+              )),
+              Tab(
+                  icon: Icon(
+                Icons.mail_outline,
+                // color: Colors.grey,
+              )),
+            ],
+          ),
+        ),
       ),
-      body: getTweets(),
-      floatingActionButton: FloatingActionButton(
-        elevation: 1,
-        onPressed: () {
-          _newTweet();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: NavBar(),
     );
   }
 
@@ -218,7 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
         future: tweets.get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
           List<Widget> _widgets = snapshot.data!.docs
               .map((doc) => Padding(
@@ -261,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.close,
                                 size: 30,
                               )),
@@ -305,12 +345,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.all(18.0),
+                        padding: const EdgeInsets.all(18.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CircleAvatar(
+                            const CircleAvatar(
                               backgroundColor: Colors.grey,
                             ),
                             Container(
@@ -322,7 +362,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 maxLength: 280,
                                 maxLengthEnforcement:
                                     MaxLengthEnforcement.enforced,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "What's happening?"),
                               ),
