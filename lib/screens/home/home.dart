@@ -162,7 +162,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: TabBarView(children: [
-          getTweets(),
+          RefreshIndicator(
+              onRefresh: () async {
+                setState(() {});
+              },
+              child: getTweets()),
           Center(
             child: TextButton(
                 style: ButtonStyle(
@@ -245,23 +249,26 @@ class _MyHomePageState extends State<MyHomePage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference tweets = firestore.collection('tweets');
     return FutureBuilder<QuerySnapshot>(
-        future: tweets.get(),
+        future: tweets.orderBy('createdOn', descending: true).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
+            return Container();
           }
-          List<Widget> _widgets = snapshot.data!.docs
-              .map((doc) => Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
-                    child: Column(
-                      children: [
-                        tweet(doc['body'], doc['username'], doc['handle'],
-                            doc['replies'], doc['shares'], doc['favs']),
-                        const Divider(),
-                      ],
-                    ),
-                  ))
-              .toList();
+          List<Widget> _widgets = snapshot.data!.docs.map((doc) {
+            DateTime createdOn =
+                DateTime.parse(doc['createdOn'].toDate().toString());
+            Duration deltaT = DateTime.now().difference(createdOn);
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+              child: Column(
+                children: [
+                  tweet(doc['body'], doc['username'], doc['handle'],
+                      doc['replies'], doc['shares'], doc['favs'], deltaT),
+                  const Divider(),
+                ],
+              ),
+            );
+          }).toList();
 
           return ListView(
             children: _widgets,
@@ -316,19 +323,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Colors.lightBlue),
                             ),
                             child: const Text('Tweet'),
-                            onPressed: () {
-                              FirebaseFirestore.instance
-                                  .collection('tweets')
-                                  .add({
-                                'username': _authService.getUsername(),
-                                'handle': _authService.getUsername(),
-                                'body': _textEditingController.text,
-                                'favs': 0,
-                                'shares': 0,
-                                'replies': 0,
-                                'createdOn': FieldValue.serverTimestamp()
-                              });
-                              Navigator.of(context).pop();
+                            onPressed: () async {
+                              if (_textEditingController.text.isEmpty) {
+                              } else {
+                                Navigator.of(context).pop();
+                                await FirebaseFirestore.instance
+                                    .collection('tweets')
+                                    .add({
+                                  'username': _authService.getUsername(),
+                                  'handle': _authService.getUsername(),
+                                  'body': _textEditingController.text,
+                                  'favs': 0,
+                                  'shares': 0,
+                                  'replies': 0,
+                                  'createdOn': FieldValue.serverTimestamp()
+                                });
+                                setState(() {});
+                              }
                             },
                           )
                         ],
