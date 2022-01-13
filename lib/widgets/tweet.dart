@@ -9,7 +9,7 @@ Widget tweet(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 8.0),
         child: CircleAvatar(
           backgroundColor: Colors.grey,
         ),
@@ -30,7 +30,7 @@ Widget tweet(
                               fontWeight: FontWeight.bold,
                             )),
                         Text(
-                          '@' + handle,
+                          '@' + handle.replaceAll(" ", ""),
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(
@@ -65,7 +65,6 @@ Widget tweet(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -75,14 +74,13 @@ Widget tweet(
                             size: 16,
                           ),
                           Text(
-                            comments.toString(),
+                            comments != 0 ? comments.toString() : '',
                             style: TextStyle(fontWeight: FontWeight.w300),
                           )
                         ],
                       ),
                     ),
                     Container(
-                      width: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -92,7 +90,7 @@ Widget tweet(
                             size: 18,
                           ),
                           Text(
-                            rt.toString(),
+                            rt != 0 ? rt.toString() : '',
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -108,7 +106,7 @@ Widget tweet(
                             size: 18,
                           ),
                           Text(
-                            fav.toString(),
+                            fav != 0 ? fav.toString() : '',
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
