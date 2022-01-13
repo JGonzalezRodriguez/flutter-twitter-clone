@@ -39,87 +39,92 @@ class _RegisterState extends State<Register> {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.lightBlue),
         backgroundColor: Colors.black87,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(25),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Padding(
-                padding: EdgeInsets.fromLTRB(24.0, 0, 0, 0),
-                child: Text(
-                  'Create your account',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       body: Container(
         color: Colors.black87,
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Form(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.white70),
-                        controller: _nameController,
-                        maxLength: 50,
-                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                        decoration: const InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white70)),
-                            hintStyle: TextStyle(color: Colors.white70),
-                            hintText: "Name"),
+              const Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(24.0, 0, 0, 0),
+                  child: Text(
+                    'Create your account',
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 4,
+                child: Form(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.white70),
+                          controller: _nameController,
+                          maxLength: 50,
+                          maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                          decoration: const InputDecoration(
+                              counterStyle: TextStyle(color: Colors.white60),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white60)),
+                              hintStyle: TextStyle(color: Colors.white60),
+                              hintText: "Name"),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.white70),
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white70)),
-                            hintStyle: TextStyle(color: Colors.white70),
-                            hintText: "Phone number or email adress"),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.white60),
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white60)),
+                              hintStyle: TextStyle(color: Colors.white60),
+                              hintText: "Phone number or email adress"),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                      child: TextFormField(
-                        obscureText: _passwordVisible ? false : true,
-                        style: const TextStyle(color: Colors.white70),
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                            suffix: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Colors.white70,
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                        child: TextFormField(
+                          obscureText: _passwordVisible ? false : true,
+                          style: const TextStyle(color: Colors.white60),
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                              suffix: IconButton(
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.white60,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible;
+                                  });
+                                },
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white70)),
-                            hintStyle: TextStyle(color: Colors.white70),
-                            hintText: "Password"),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white60)),
+                              hintStyle: TextStyle(color: Colors.white60),
+                              hintText: "Password"),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ]),
