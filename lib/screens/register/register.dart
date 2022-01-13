@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:twitter/screens/home/home.dart';
-import 'package:twitter/screens/login/signin2.dart';
 import '../../services/auth.dart';
 
 class Register extends StatefulWidget {
@@ -17,6 +16,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final AuthService _authService = AuthService();
+
+  bool _passwordVisible = false;
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -69,6 +70,7 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        style: const TextStyle(color: Colors.white70),
                         controller: _nameController,
                         maxLength: 50,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -82,6 +84,7 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        style: const TextStyle(color: Colors.white70),
                         controller: _emailController,
                         decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -93,8 +96,23 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        obscureText: _passwordVisible ? false : true,
+                        style: const TextStyle(color: Colors.white70),
                         controller: _passwordController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                            suffix: IconButton(
+                              icon: Icon(
+                                _passwordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.white70,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
+                            ),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white70)),
                             hintStyle: TextStyle(color: Colors.white70),

@@ -50,11 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          // margin: const EdgeInsets.all(8.0),
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.grey,
-                          ),
+                        const CircleAvatar(
+                          backgroundColor: Colors.grey,
                         ),
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -81,31 +78,31 @@ class _MyHomePageState extends State<MyHomePage> {
                             margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   '1,000',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   ' Following   ',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   '100,000',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   ' Followers',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
                                   ),
