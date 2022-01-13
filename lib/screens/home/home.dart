@@ -58,8 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: const Text(
-                            'Firstname Lastname',
+                          child: Text(
+                            _authService.getUsername() ?? "Nombre de Usuario",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -68,8 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: const Text(
-                            '@username',
+                          child: Text(
+                            _authService.getUsername()?.replaceAll(" ", "") ??
+                                "@username",
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 15,

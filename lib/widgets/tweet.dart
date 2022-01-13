@@ -9,7 +9,7 @@ Widget tweet(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 8.0),
         child: CircleAvatar(
           backgroundColor: Colors.grey,
         ),
