@@ -30,7 +30,7 @@ Widget tweet(
                               fontWeight: FontWeight.bold,
                             )),
                         Text(
-                          '@' + handle,
+                          '@' + handle.replaceAll(" ", ""),
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(

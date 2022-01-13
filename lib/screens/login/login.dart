@@ -72,12 +72,7 @@ class _LoginState extends State<Login> {
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.grey),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => const Register()));
-                          },
+                          onPressed: () {},
                           child: const SizedBox(
                             width: 300,
                             height: 25,

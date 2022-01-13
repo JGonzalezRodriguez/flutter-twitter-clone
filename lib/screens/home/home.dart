@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:twitter/services/auth.dart';
 import '../../widgets/tweet.dart';
 import 'package:flutter/services.dart';
 
@@ -22,18 +23,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final AuthService _authService = AuthService();
 
   Widget drawerListItem(Icon icon, Text text) {
     return ListTile(leading: icon, title: text);
@@ -184,8 +174,8 @@ class _MyHomePageState extends State<MyHomePage> {
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
-        bottomNavigationBar: BottomAppBar(
-          child: const TabBar(
+        bottomNavigationBar: const BottomAppBar(
+          child: TabBar(
             indicatorColor: Colors.transparent,
             labelColor: Colors.lightBlue,
             unselectedLabelColor: Colors.grey,
@@ -253,7 +243,6 @@ class _MyHomePageState extends State<MyHomePage> {
           final TextEditingController _textEditingController =
               TextEditingController();
           return Form(
-            key: _formkey,
             child: Container(
                 color: Colors.white,
                 child: Column(
@@ -297,12 +286,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               FirebaseFirestore.instance
                                   .collection('tweets')
                                   .add({
-                                'username': 'prueba',
-                                'handle': 'handleprueba',
+                                'username': _authService.getUsername(),
+                                'handle': _authService.getUsername(),
                                 'body': _textEditingController.text,
                                 'favs': 0,
                                 'shares': 0,
-                                'replies': 0
+                                'replies': 0,
+                                'createdOn': FieldValue.serverTimestamp()
                               });
                               Navigator.of(context).pop();
                             },

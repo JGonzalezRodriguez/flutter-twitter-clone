@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:twitter/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:twitter/screens/home/home.dart';
 import 'package:twitter/screens/login/signin2.dart';
+import '../../services/auth.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -12,6 +13,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -25,16 +30,14 @@ class _RegisterState extends State<Register> {
             Navigator.of(context).pop();
           },
         ),
-        elevation: 1,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        elevation: 0,
         title: SizedBox(
           height: 20,
           child: Image.asset('img/twitter.png', fit: BoxFit.cover),
         ),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.lightBlue),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black87,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(25),
           child: Row(
@@ -55,7 +58,7 @@ class _RegisterState extends State<Register> {
         ),
       ),
       body: Container(
-        color: Colors.black,
+        color: Colors.black87,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +69,7 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        controller: _nameController,
                         maxLength: 50,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         decoration: const InputDecoration(
@@ -78,6 +82,7 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        controller: _emailController,
                         decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white70)),
@@ -88,11 +93,12 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                       child: TextFormField(
+                        controller: _passwordController,
                         decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white70)),
                             hintStyle: TextStyle(color: Colors.white70),
-                            hintText: "Date of birth"),
+                            hintText: "Password"),
                       ),
                     ),
                   ],
@@ -101,7 +107,8 @@ class _RegisterState extends State<Register> {
             ]),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        color: Colors.black87,
+        elevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -125,12 +132,23 @@ class _RegisterState extends State<Register> {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.lightBlue),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) =>
-                                const SignIn2(username: 'prueba')));
+                  onPressed: () async {
+                    try {
+                      dynamic user = await _authService.registerEmail(
+                          _emailController.text,
+                          _passwordController.text,
+                          _nameController.text);
+                      if (user == null) {
+                      } else {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const MyHomePage(title: 'twitter')));
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                   child: const Text('Next')),
             )
