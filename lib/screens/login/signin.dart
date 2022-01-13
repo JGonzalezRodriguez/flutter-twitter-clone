@@ -11,6 +11,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _signInState extends State<SignIn> {
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -52,6 +54,8 @@ class _signInState extends State<SignIn> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
               child: TextFormField(
+                style: const TextStyle(color: Colors.white70),
+                controller: _emailController,
                 decoration: const InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white70)),
@@ -94,7 +98,7 @@ class _signInState extends State<SignIn> {
                         context,
                         CupertinoPageRoute(
                             builder: (context) =>
-                                const SignIn2(username: 'prueba')));
+                                SignIn2(username: _emailController.text)));
                   },
                   child: Text('Next')),
             )

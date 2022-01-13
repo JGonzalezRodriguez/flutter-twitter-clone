@@ -12,6 +12,7 @@ class SignIn2 extends StatefulWidget {
 }
 
 class _signInState extends State<SignIn2> {
+  final TextEditingController _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
   bool _passwordVisible = false;
 
@@ -56,6 +57,7 @@ class _signInState extends State<SignIn2> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
               child: TextFormField(
+                controller: _passwordController,
                 style: const TextStyle(color: Colors.white70),
                 obscureText: _passwordVisible ? false : true,
                 decoration: InputDecoration(
@@ -109,8 +111,8 @@ class _signInState extends State<SignIn2> {
                         MaterialStateProperty.all<Color>(Colors.lightBlue),
                   ),
                   onPressed: () async {
-                    dynamic result =
-                        _authService.loginEmail(widget.username, 'password');
+                    dynamic result = _authService.loginEmail(
+                        widget.username, _passwordController.text);
                     if (result != null) {
                       Navigator.push(
                           context,
