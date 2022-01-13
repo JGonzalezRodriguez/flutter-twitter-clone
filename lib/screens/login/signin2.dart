@@ -111,16 +111,15 @@ class _signInState extends State<SignIn2> {
                         MaterialStateProperty.all<Color>(Colors.lightBlue),
                   ),
                   onPressed: () async {
-                    dynamic result = _authService.loginEmail(
+                    dynamic result = await _authService.loginEmail(
                         widget.username, _passwordController.text);
-                    if (result != null) {
+                    if (result == null) {
+                    } else {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
                               builder: (context) =>
                                   const MyHomePage(title: 'twitter')));
-                    } else {
-                      print('no se pudo loggear');
                     }
                   },
                   child: const Text('Log In')),

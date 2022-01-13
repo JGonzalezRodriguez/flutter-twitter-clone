@@ -7,10 +7,10 @@ class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
-  _signInState createState() => _signInState();
+  _SignInState createState() => _SignInState();
 }
 
-class _signInState extends State<SignIn> {
+class _SignInState extends State<SignIn> {
   final TextEditingController _emailController = TextEditingController();
 
   @override
@@ -18,7 +18,7 @@ class _signInState extends State<SignIn> {
     return (Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.close_outlined,
             size: 25,
           ),
@@ -40,8 +40,8 @@ class _signInState extends State<SignIn> {
       body: Container(
         color: Colors.black87,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'To get started, first enter your name, email, or @username',
               style: TextStyle(
