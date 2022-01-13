@@ -162,7 +162,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: TabBarView(children: [
-          getTweets(),
+          RefreshIndicator(
+              onRefresh: () async {
+                setState(() {});
+              },
+              child: getTweets()),
           Center(
             child: TextButton(
                 style: ButtonStyle(
@@ -248,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
         future: tweets.orderBy('createdOn', descending: true).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
+            return Container();
           }
           List<Widget> _widgets = snapshot.data!.docs.map((doc) {
             DateTime createdOn =
@@ -319,10 +323,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Colors.lightBlue),
                             ),
                             child: const Text('Tweet'),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_textEditingController.text.isEmpty) {
                               } else {
-                                FirebaseFirestore.instance
+                                Navigator.of(context).pop();
+                                await FirebaseFirestore.instance
                                     .collection('tweets')
                                     .add({
                                   'username': _authService.getUsername(),
@@ -334,7 +339,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   'createdOn': FieldValue.serverTimestamp()
                                 });
                                 setState(() {});
-                                Navigator.of(context).pop();
                               }
                             },
                           )
