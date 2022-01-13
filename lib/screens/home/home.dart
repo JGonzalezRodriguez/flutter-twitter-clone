@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:twitter/screens/login/login.dart';
+import 'package:twitter/screens/register/register.dart';
 import 'package:twitter/services/auth.dart';
 import '../../widgets/tweet.dart';
 import 'package:flutter/services.dart';
@@ -160,9 +163,42 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: TabBarView(children: [
           getTweets(),
-          const Icon(Icons.ac_unit),
-          const Icon(Icons.ac_unit),
-          const Icon(Icons.ac_unit),
+          Center(
+            child: TextButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36.0),
+                        side: const BorderSide(color: Colors.lightBlue)),
+                  ),
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+                  textStyle: MaterialStateProperty.all(const TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold)),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.grey),
+                ),
+                onPressed: () {
+                  _authService.Logout();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const Login(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                child: const SizedBox(
+                  width: 300,
+                  height: 25,
+                  child: Center(child: Text('Logout')),
+                )),
+          ),
+          Container(),
+          Container(),
         ]),
         floatingActionButton: FloatingActionButton(
           elevation: 1,
