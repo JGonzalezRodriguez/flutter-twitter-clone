@@ -42,4 +42,9 @@ class AuthService {
       return null;
     }
   }
+
+  //logout
+  Logout() {
+    _auth.signOut();
+  }
 }
